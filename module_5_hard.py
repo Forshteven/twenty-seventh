@@ -1,8 +1,7 @@
 class Video:
     def __init__(self, title, duration, adult_mode=True):
-        self.title = title
+        self.title = title.lower()
         self.duration = duration
-        self.time_now = True
         self.adult_mode = adult_mode
 
 
@@ -13,49 +12,49 @@ class User:
         self.age = age
 
 
-class UrTube(Video, User):
-    users = []
-    videos = []
-    current_user = True
-        
+class UrTube:
+    def __init__(self):
+        self.users = []
+        self.videos = []
+        self.current_user = True
+
     def log_in(self, nickname, password):
-        while True:
-            if nickname in self.users[nickname]:
-                self.current_user = nickname
+        for user in self.users:
+            if user.nickname == nickname and user.password == password:
+                self.current_user = user
                 if password == self.users[nickname]:
                     print(f"Вход выполнен, {nickname}")
-                    break
                 else:
                     print("Неверный пароль")
 
     def register(self, nickname, password, age):
-        while True:
-            if nickname not in self.users[nickname]:
-                new_user = User(nickname, password, age)
-                self.users.append(new_user)
-                print(f"Пользователь {nickname} добавлен")
-                break
-            else:
-                print(f"Пользователь {nickname} уже существует")
+        if nickname not in self.users:
+            new_user = User(nickname, password, age)
+            self.users.append(new_user)
+            print(f"Пользователь {nickname} добавлен")
+        else:
+            print(f"Пользователь {nickname} уже существует")
 
-    def add_videos(self, *args):
-        while True:
-            if self.title not in self.videos:
-                new_video = Video(self.title, self.duration, adult_mode=True)
-                self.videos.append(new_video)
-                print(f"Видео {self.title} добавлено")
-                break
+    def add_videos(self, *video):
+        for video in self.videos:
+            if video.title.lower() not in self.videos:
+                self.videos.append(video)
+                print(f"Видео {video.title} добавлено")
             else:
                 print(f"Видео уже существует")
 
     def get_videos(self, title):
-        if title in self.videos:
-            return self.videos[title]
-        else:
-            print(f"Видео не найдено")
+        for video in self.videos:
+            if video.title == title:
+                return video
+            else:
+                print(f"Видео не найдено")
 
 
-ur = UrTube(Video, User)
+#
+# if __name__ == "__main__":
+
+ur = UrTube()
 v1 = Video('Лучший язык программирования 2024 года', 200)
 v2 = Video('Для чего девушкам парень программист?', 10, adult_mode=True)
 
