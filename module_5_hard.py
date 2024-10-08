@@ -54,7 +54,7 @@ class UrTube:
                 print(f"Видео {video.title} уже существует")
 
     def get_videos(self, title):
-        found_videos = [video for video in self.videos if title.lower() in video.title]
+        found_videos = [video.title for video in self.videos if title.lower() in video.title]
         if found_videos:
             return found_videos
         else:
