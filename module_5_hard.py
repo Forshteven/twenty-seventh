@@ -69,11 +69,10 @@ class UrTube:
             print("Войдите в аккаунт, чтобы смотреть видео")
             return
         for video in self.videos:
-            if title.lower() in video.title:
-                if video.adult_mode and self.current_user.age < 18:
-                    print("Вам нет 18 лет, пожалуйста покиньте страницу")
-                    return
-
+            if video.adult_mode and self.current_user.age < 18:
+                print("Вам нет 18 лет, пожалуйста покиньте страницу")
+                return
+            elif title.lower() in video.title:
                 while video.time_now < video.duration:
                     print(f"{video.time_now + 1}", end=' ')
                     video.time_now += 1  # Симуляция просмотра видео
